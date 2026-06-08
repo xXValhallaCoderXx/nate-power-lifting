@@ -159,12 +159,19 @@ Pure functions, **zero DB/React imports**. To change the methodology, change onl
 4. **Complete screen**: recomputes `proposeTmChange` from AMRAP logs and current TMs; user
    accepts/edits/declines → `applyTmChange` updates the lift + writes an event.
 
-**"Last time" panel:** the session screen shows an expandable read-only snapshot of the most
-recent *completed* session with the **same `dayNumber` AND `phase`** (`getPreviousSameDaySnapshot`).
-Anchoring on day + phase keeps the comparison apples-to-apples — a template day always has the
-same main-lift roles and accessory schemes (`lib/program/config.ts`), so matching never mixes,
-e.g., a 3x5 strength block with a 3x8 hypertrophy block. It snapshots actual logged main-lift
-and accessory sets (warm-ups excluded); returns `null` when there is no prior matching session.
+**"Last time" panel** (`components/session/LastSessionSnapshot.tsx`): the session screen shows an
+expandable read-only view of what was logged last time, split into two independently-sourced
+parts so rep schemes always line up:
+- **Main lifts** (`getPreviousSameDaySnapshot`): the most recent *completed* session with the
+  **same `dayNumber` AND `phase`**. Anchoring on day + phase keeps it apples-to-apples — a
+  template day always has the same main-lift roles (`lib/program/config.ts`) and phase
+  distinguishes reintro from wave. Warm-ups excluded; `null` when there's no prior match.
+- **Accessories** (`getAccessoryLastTimes`): per-accessory, since accessories can be swapped. For
+  each accessory in the current session it finds the most recent prior logging, **preferring the
+  same `dayNumber`** (consistent scheme) and only falling back to another day for swapped-in
+  exercises — flagged `sameDay: false` so the UI tags the different-day context.
+
+The panel renders whenever either part has history.
 
 ## 8. Progress analytics (`app/(app)/progress/page.tsx`)
 
