@@ -1,6 +1,7 @@
 import { phaseLabel, previewUpcoming, type Cursor, type Phase } from "@/lib/program";
 import { getAthlete, getProgramConfig, getTrainingMaxes } from "@/lib/queries";
 import { UpcomingList } from "@/components/plan/UpcomingList";
+import { PlanInfo } from "@/components/plan/PlanInfo";
 import { PageHeader, EmptyState } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
@@ -53,6 +54,12 @@ export default async function PlanPage() {
           Your next {PREVIEW_COUNT} queued sessions. Sessions are a flexible queue - do the next
           day whenever it suits your week.
         </p>
+        <PlanInfo
+          tms={tms}
+          plateIncrement={athlete?.plateIncrementKg ?? 2.5}
+          currentPhase={phase}
+          currentWeek={cfg.weekIndex}
+        />
         <UpcomingList sessions={sessions} />
       </div>
     </>

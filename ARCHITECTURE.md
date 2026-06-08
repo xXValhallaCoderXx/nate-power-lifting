@@ -56,6 +56,7 @@ components/
   NumberField.tsx            compact editable validated input (dense grids)
   PlanPreview.tsx            grouped prescribed-set preview (Today + Plan)
   plan/UpcomingList.tsx      Plan-tab timeline of upcoming sessions (week-grouped, expandable)
+  plan/PlanInfo.tsx          Plan-tab "How this plan works" modal (config-driven explainer)
   session/                   SetTable (inline per-lift logging grid: Set/Prev/kg/Reps/RPE/check),
                              AccessoryManager, AccessoryRow, ExercisePicker, SessionControls,
                              TmProposalCard, LastSessionSnapshot (read-only "last time"; see §7)
@@ -201,6 +202,12 @@ state.
 - `components/plan/UpcomingList.tsx` renders a week-grouped timeline; each card shows role
   badges + a one-line summary and expands to the full breakdown via the shared `PlanPreview`.
   Flags surfaced: `AMRAP` (progression day), `Deload`, `Projected`.
+- `components/plan/PlanInfo.tsx` is a "How this plan works" modal that explains the methodology
+  (phases, weekly template, role percentages, wave table, warm-up ramp, TM-progression deltas).
+  It is **fully derived from `lib/program/config.ts`** and recomputes sample loads with
+  `roundToPlate` against the current TMs — a transparency/verification view that auto-updates if
+  the program (or, later, a different plan) changes. Rendered in the page body (not the
+  `backdrop-blur` header, which would trap a `fixed` overlay).
 
 ## 9. UI & design system
 
