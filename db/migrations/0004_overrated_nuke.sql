@@ -1,0 +1,1 @@
+ALTER TABLE "accessory_set" ADD COLUMN "rpe" real;

@@ -1,0 +1,10 @@
+{
+  "name": "Lift Tracker",
+  "short_name": "Lift",
+  "description": "Personal powerlifting tracker",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0d10",
+  "theme_color": "#0b0d10",
+  "icons": []
+}
