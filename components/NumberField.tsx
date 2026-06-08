@@ -16,6 +16,8 @@ export function NumberField({
   placeholder,
   onChange,
   className = "",
+  compact = false,
+  ariaLabel,
 }: {
   value: number;
   min?: number;
@@ -23,6 +25,9 @@ export function NumberField({
   placeholder?: string;
   onChange: (v: number) => void;
   className?: string;
+  /** Smaller font/padding for dense inline grids. */
+  compact?: boolean;
+  ariaLabel?: string;
 }) {
   const [text, setText] = useState(String(round2(value)));
   const [focused, setFocused] = useState(false);
@@ -49,6 +54,7 @@ export function NumberField({
       inputMode="decimal"
       value={text}
       placeholder={placeholder}
+      aria-label={ariaLabel}
       onChange={(e) => {
         setText(e.target.value);
         const n = parseFloat(e.target.value);
@@ -60,9 +66,9 @@ export function NumberField({
       }}
       onBlur={commit}
       size={1}
-      className={`w-full min-w-0 rounded-xl border bg-surface2 py-2.5 text-center text-lg font-bold tabular-nums outline-none transition ${
-        invalid ? "border-heavy" : "border-border focus:border-accent focus:bg-surface"
-      } ${className}`}
+      className={`w-full min-w-0 rounded-xl border bg-surface2 text-center font-bold tabular-nums outline-none transition ${
+        compact ? "px-0.5 py-2 text-base" : "py-2.5 text-lg"
+      } ${invalid ? "border-heavy" : "border-border focus:border-accent focus:bg-surface"} ${className}`}
     />
   );
 }

@@ -12,7 +12,7 @@ import {
 } from "@/lib/queries";
 import { LIFT_NAMES, WEEKLY_TEMPLATE, type LiftName, type Role } from "@/lib/program";
 import { PageHeader, RoleBadge } from "@/components/ui";
-import { SetCard } from "@/components/session/SetCard";
+import { SetTable } from "@/components/session/SetTable";
 import { AccessoryManager } from "@/components/session/AccessoryManager";
 import { LastSessionSnapshot } from "@/components/session/LastSessionSnapshot";
 import { SessionControls } from "@/components/session/SessionControls";
@@ -93,22 +93,16 @@ export default async function SessionPage({ params }: { params: Promise<{ id: st
 
         {[...byLift.entries()].map(([liftId, sets]) => {
           const role = (sets.find((s) => !s.isWarmup)?.role ?? sets[0].role) as Role;
+          const previousSets =
+            previousSnapshot?.mainLifts.find((l) => l.liftId === liftId)?.sets ?? [];
+          const rows = sets.map((s) => ({ prescribed: s, logged: loggedBySet.get(s.id) ?? null }));
           return (
             <section key={liftId}>
               <div className="mb-2 flex items-center justify-between px-1">
                 <h2 className="text-lg font-semibold">{LIFT_NAMES[liftId]}</h2>
                 <RoleBadge role={role} />
               </div>
-              <div className="flex flex-col gap-2">
-                {sets.map((s) => (
-                  <SetCard
-                    key={s.id}
-                    prescribed={s}
-                    logged={loggedBySet.get(s.id) ?? null}
-                    plateIncrement={plateIncrement}
-                  />
-                ))}
-              </div>
+              <SetTable rows={rows} previousSets={previousSets} plateIncrement={plateIncrement} />
             </section>
           );
         })}

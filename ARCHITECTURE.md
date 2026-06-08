@@ -56,9 +56,9 @@ components/
   NumberField.tsx            compact editable validated input (dense grids)
   PlanPreview.tsx            grouped prescribed-set preview (Today + Plan)
   plan/UpcomingList.tsx      Plan-tab timeline of upcoming sessions (week-grouped, expandable)
-  session/                   SetCard, AccessoryManager, AccessoryRow, ExercisePicker,
-                             SessionControls, TmProposalCard, LastSessionSnapshot
-                             (read-only "last time" panel; see §7)
+  session/                   SetTable (inline per-lift logging grid: Set/Prev/kg/Reps/RPE/check),
+                             AccessoryManager, AccessoryRow, ExercisePicker, SessionControls,
+                             TmProposalCard, LastSessionSnapshot (read-only "last time"; see §7)
   lifts/TmEditor.tsx         TM edit
   settings/SettingsForm.tsx  settings form
   charts/                    LineChartCard, BarChartCard (Recharts)
